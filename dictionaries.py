@@ -20,7 +20,7 @@ for key,value in d.items():
     print(key,value)
 #delete a key-value pair
 del d['France']
-print(d)'''
+print(d)
 
 #Game dictionary
 d={'football':'Ronaldo',
@@ -30,3 +30,17 @@ print(d)
 print(d['athlatics'])
 d['cricket'] = 'Virat'
 print(d)
+
+#Vowels counter
+x=input('Enter the sentence')
+b={'a':0,'e':0, 'i':0, 'o':0, 'u':0} 
+for i in x:
+    if i in b:
+        b[i]+=1
+
+print(b)''' 
+
+#Username and password program
+c={'Bentley':'Benronpisani313','Nathan':'Nathanazz516','Tom':'Tomciap412'}
+print('select an option\n1.log in \n2.Enter new user')
+
