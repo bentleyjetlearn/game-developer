@@ -41,6 +41,30 @@ for i in x:
 print(b)''' 
 
 #Username and password program
-c={'Bentley':'Benronpisani313','Nathan':'Nathanazz516','Tom':'Tomciap412'}
-print('select an option\n1.log in \n2.Enter new user')
+c = {'Bentley': 'Benronpisani313', 'Nathan': 'Nathanazz516', 'Tom': 'Tomciap412'}
 
+print('Select an option:\n1. Log in\n2. Enter new user')
+q = input('Select option (1 or 2): ')
+
+if q == '1':
+    username = input('Enter the username: ')
+    if username in c:
+        password = input('Enter the password: ')
+        if c[username] == password:
+            print('Login successful!')
+        else:
+            print('Incorrect password.')
+    else:
+        print('Username not found.')
+
+elif q == '2':
+    new_user = input('Enter a new username: ')
+    if new_user in c:
+        print('Username already exists. Please try another one.')
+    else:
+        new_pass = input('Enter a password for the new user: ')
+        c[new_user] = new_pass
+        print('New user added successfully!')
+
+else:
+    print('Invalid option. Please choose 1 or 2.')
