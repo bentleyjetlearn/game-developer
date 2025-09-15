@@ -14,6 +14,8 @@ currentq=0
 totalq=0
 timer=10
 questions=[]
+finished=False 
+score=0
 def draw():
     screen.fill('black')
     screen.draw.filled_rect(scrollerbox,'blue')
@@ -28,6 +30,11 @@ def draw():
     screen.draw.textbox(message,scrollerbox,color='black')
     screen.draw.textbox(str(timer),timerbox,color='white')
     screen.draw.textbox('skip',skipbox,color='black')
+    screen.draw.textbox(q[0],questionbox,color='black')
+    screen.draw.textbox(q[1],answerbox1,color='black')
+    screen.draw.textbox(q[2],answerbox2,color='black')
+    screen.draw.textbox(q[3],answerbox3,color='black')
+    screen.draw.textbox(q[4],answerbox4,color='black')
 
 def update():
 
@@ -40,7 +47,24 @@ def load_questions():
         for i in file:
             questions.append(i)
             totalq+=1
-
+def readq():
+    global currentq
+    currentq+=1
+    return questions.pop(0).split('|')
+def updatetime():
+    global timer, score
+    if timer:
+        timer-=1
+    else:
+        game_over()
+def game_over():
+    global timer, finished, q
+    msg=f'Game_over!You scored {score}'
+    q=[msg,'-','-','-','-',0]
+    timer=0
+    finished=True
+    
+clock.schedule_interval(updatetime,1)
 load_questions()
-print (questions)
+q=readq()
 pgzrun.go()
