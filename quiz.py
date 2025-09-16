@@ -15,6 +15,7 @@ totalq=0
 timer=10
 questions=[]
 finished=False 
+answerboxes=[answerbox1, answerbox2, answerbox3, answerbox4]
 score=0
 def draw():
     screen.fill('black')
@@ -30,11 +31,11 @@ def draw():
     screen.draw.textbox(message,scrollerbox,color='black')
     screen.draw.textbox(str(timer),timerbox,color='white')
     screen.draw.textbox('skip',skipbox,color='black')
-    screen.draw.textbox(q[0],questionbox,color='black')
-    screen.draw.textbox(q[1],answerbox1,color='black')
-    screen.draw.textbox(q[2],answerbox2,color='black')
-    screen.draw.textbox(q[3],answerbox3,color='black')
-    screen.draw.textbox(q[4],answerbox4,color='black')
+    screen.draw.textbox(q[0].strip(),questionbox,color='black')
+    screen.draw.textbox(q[1].strip(),answerbox1,color='black')
+    screen.draw.textbox(q[2].strip(),answerbox2,color='black')
+    screen.draw.textbox(q[3].strip(),answerbox3,color='black')
+    screen.draw.textbox(q[4].strip(),answerbox4,color='black')
 
 def update():
 
@@ -59,11 +60,41 @@ def updatetime():
         game_over()
 def game_over():
     global timer, finished, q
-    msg=f'Game_over!You scored {score}'
+    msg=f'Game over!You scored {score}'
     q=[msg,'-','-','-','-',0]
     timer=0
     finished=True
-    
+def on_mouse_down(pos):
+    boxnum=1
+    for i in answerboxes:
+        if i.collidepoint(pos):
+                if boxnum is int(q[5]):
+                    correct()
+                else:
+                    game_over()
+        boxnum+=1 
+    if skipbox.collidepoint(pos):
+        skip()
+
+def correct():
+    global q, timer, score
+    score+=1
+    if questions:
+        q=readq()
+        timer=10
+    else:
+        game_over()
+
+def skip():
+    global timer, q
+    if questions:
+        q=readq()
+        timer=10
+    else:
+        game_over()
+
+
+
 clock.schedule_interval(updatetime,1)
 load_questions()
 q=readq()
